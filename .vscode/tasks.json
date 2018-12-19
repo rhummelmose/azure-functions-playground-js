@@ -1,0 +1,54 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Functions",
+      "type": "shell",
+      "command": "sh scripts/functions_host_background.sh",
+      "problemMatcher": []
+    },
+    {
+      "label": "Stop Functions",
+      "type": "shell",
+      "command": "tmux kill-session -t azure-functions-playground",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      }
+    },
+    {
+      "label": "Compile TypeScript",
+      "type": "shell",
+      "command": "tsc --outDir TypeScriptFunction --sourceMap --lib es2015 TypeScriptFunction/index.ts",
+      "problemMatcher": []
+    },
+    {
+      "label": "Compile TS, Run Functions (Compound)",
+      "type": "shell",
+      "dependsOn": [
+        "Compile TypeScript",
+        "Run Functions"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Compile TS, Run Functions (Shell)",
+      "type": "shell",
+      "command": "tsc --outDir TypeScriptFunction --sourceMap --lib es2015 TypeScriptFunction/index.ts;sh scripts/functions_host_background.sh",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      }
+    }
+  ]
+}
